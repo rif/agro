@@ -3,16 +3,15 @@
 *.pyo
 *.bak
 *.bak2
-cache/*
-private/*
-uploads/*
-databases/*
-sessions/*
-errors/*
+cache
+private
+uploads
+databases
+sessions
+errors
 .sass-cache/*
 parameters_8000.py
 httpserver.pid
 httpserver.log
 welcome.w2p
-databases
 

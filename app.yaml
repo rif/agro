@@ -21,7 +21,8 @@ default_expiration: "24h"   # for static files
 
 handlers:
 
-- url: /(?P<a>.+?)/static/(?P<b>.+)
+#- url: /(?P<a>.+?)/static/(?P<b>.+)
+- url: /(?P<a>.+?)/\w{2}?/static/(?P<b>.+)
   static_files: applications/\1/static/\2
   upload: applications/(.+?)/static/(.+)
   secure: optional

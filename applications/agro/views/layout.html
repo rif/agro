@@ -39,7 +39,7 @@
   <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>
 
   <!-- include stylesheets -->
-  {{  
+  {{
   response.files.append(URL('static','css/web2py.css'))
   response.files.append(URL('static','css/bootstrap.min.css'))
   response.files.append(URL('static','css/bootstrap-responsive.min.css'))
@@ -65,42 +65,8 @@
 </head>
 
 <body>
-  <!-- Navbar ================================================== -->
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="flash">{{=response.flash or ''}}</div>
-    <div class="navbar-inner">
-      <div class="container">
-        <!-- the next tag is necessary for bootstrap menus, do not remove -->
-        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-	{{=response.logo or ''}}
-        <ul id="navbar" class="nav pull-right">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul>
-        <div class="nav-collapse">
-          {{is_mobile=request.user_agent().is_mobile}}
-          {{if response.menu:}}
-          {{=MENU(response.menu, _class='mobile-menu nav' if is_mobile else 'nav',mobile=is_mobile,li_class='dropdown',ul_class='dropdown-menu')}}
-          {{pass}}
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-  </div><!--/top navbar -->
 
   <div class="container">
-    <!-- Masthead ================================================== -->
-    <header class="mastheader row" id="header">
-        <div class="span12">
-            <div class="page-header">
-                <h1>
-                    {{=response.title or request.application}}
-                    <small>{{=response.subtitle or ''}}</small>
-                </h1>
-            </div>
-        </div>
-    </header>
-
     <section id="main" class="main row">
         {{if left_sidebar_enabled:}}
         <div class="span3 left-sidebar">
@@ -120,27 +86,17 @@
         {{if right_sidebar_enabled:}}
         <div class="span3">
             {{block right_sidebar}}
-            <h3>Right Sidebar</h3>
-            <p></p>
+            <h6>{{=T("Don't know what to do?")}}</h6>
+            <ul>
+              <li>{{=A(T("Home"), _href=URL('default','index'))}}</li>
+              <li>{{=A(T("Enter Post Graduate Status"), _href=URL('default','status'))}}</li>
+              <li>{{=A(T("Enter Resume"), _href=URL('default','resume'))}}</li>
+              <li>{{=A(T("Enter Work Offer"), _href=URL('default','work_offer'))}}</li>
+            </ul>
             {{end}}
         </div>
         {{pass}}
     </section><!--/main-->
-
-    <!-- Footer ================================================== -->
-    <div class="row">
-        <footer class="footer span12" id="footer">
-            <div class="footer-content">
-                {{block footer}} <!-- this is default footer -->
-                <div class="copyright pull-left">{{=T('Copyright')}} &#169; {{=request.now.year}}</div>
-                <div id="poweredBy" class="pull-right">
-                    {{=T('Powered by')}}
-                    <a href="http://www.web2py.com/">web2py</a>
-                </div>
-                {{end}}
-            </div>
-        </footer>
-    </div>
 
   </div> <!-- /container -->
 
@@ -152,15 +108,13 @@
       <script src="{{=URL('static','js/dd_belatedpng.js')}}"></script>
       <script> DD_belatedPNG.fix('img, .png_bg'); //fix any <img> or .png_bg background-images </script>
       <![endif]-->
-  
+
   {{if response.google_analytics_id:}}
   <script src="{{=URL('static','js/analytics.min.js')}}"></script>
   <script type="text/javascript">
   analytics.initialize({
-    'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'} 
+    'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'}
   });</script>
   {{pass}}
-  <script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script>
 </body>
 </html>
-

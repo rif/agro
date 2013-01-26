@@ -12,4 +12,3 @@ routers = {
 	languages = ['en', 'ro']
     )
 }
-print routers

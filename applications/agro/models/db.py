@@ -80,6 +80,7 @@ Resume = db.define_table('resume',
                          Field('completed_studies'),
                          Field('competence_areas', 'list:string'),
                          Field('foreign_languages', 'list:string'),
+
 )
 
 JobOffer = db.define_table('job_offer',

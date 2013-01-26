@@ -78,6 +78,7 @@
         <li>{{=A(T("Enter Post Graduate Status"), _href=URL('default','status'))}}</li>
         <li>{{=A(T("Enter Resume"), _href=URL('default','resume'))}}</li>
         <li>{{=A(T("Enter Job Offer"), _href=URL('default','job_offer'))}}</li>
+        <li>{{=A(T("Edit items"), _href=URL('default','recover'))}}</li>
       </ul>
         {{if left_sidebar_enabled:}}
         <div class="span3 left-sidebar">
@@ -97,13 +98,18 @@
         {{if right_sidebar_enabled:}}
         <div class="span3">
             {{block right_sidebar}}
-            <h6>{{=T("Don't know what to do?")}}</h6>
-
+            <h6>{{=T("Admin")}}</h6>
+            <ul>
+              <li>{{=A(T("Home"), _href=URL('backend','backend'))}}</li>
+              <li>{{=A(T("Statuses"), _href=URL('backend','statuses'))}}</li>
+              <li>{{=A(T("Resumes"), _href=URL('backend','resumes'))}}</li>
+              <li>{{=A(T("Job Offers"), _href=URL('backend','job_offers'))}}</li>
+            </ul>
             {{end}}
         </div>
         {{pass}}
     </section><!--/main-->
-
+    {{=A(T("Admin"),_target='_blank', _style='float: right; font-size: 10px', _href=URL('backend','backend'))}}
   </div> <!-- /container -->
 
   <!-- The javascript =============================================

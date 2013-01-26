@@ -48,7 +48,7 @@ if request.uri_language: T.force(request.uri_language)
 import uuid
 
 tracking = db.Table(db, 'tracking',
-                    Field('email', required=True, requires=[IS_EMAIL(), IS_NOT_IN_DB(db, 'status.email')], unique=True, readable=False. label=T('Email')),
+                    Field('email', required=True, requires=[IS_EMAIL(), IS_NOT_IN_DB(db, 'status.email')], unique=True, readable=False, label=T('Email')),
                     Field('approved', 'boolean', default=False, writable=False, readable=False, label=T('Approved')),
                     Field('enabled', 'boolean', default=True, writable=False, readable=False, label=T('Enabled')),
                     Field('uuid', default=lambda:str(uuid.uuid4()), writable=False, readable=False, label=T('UUID')),
@@ -71,7 +71,7 @@ Status = db.define_table('status',
 
 Resume = db.define_table('resume',
                          Field('photo', 'upload', uploadfield='photo_file', label=T('Photo')),
-                         Field('photo_file', 'blob', , label=T('Photo file')),
+                         Field('photo_file', 'blob', label=T('Photo file')),
                          Field('first_name', label=T('First name')),
                          Field('last_name', label=T('Last name')),
                          Field('city', label=T('City')),

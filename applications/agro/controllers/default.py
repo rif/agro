@@ -87,16 +87,16 @@ def recover():
         s = db(Status.email == form.vars.email).select().first()
         if s:
             message += 'Status\n'
-            message += 'http://%s%s\n' %(request.http_host, URL('default', 'status', args=s.uuid))
+            message += 'http://%s%s\n' %(request.env.http_host, URL('default', 'status', args=s.uuid))
         r = db(Resume.email == form.vars.email).select().first()
         if r:
             message += 'CV\n'
-            message += 'http://%s%s\n' %(request.http_host, URL('default', 'resume', args=r.uuid))
+            message += 'http://%s%s\n' %(request.env.http_host, URL('default', 'resume', args=r.uuid))
         js = db(JobOffer.email == form.vars.email).select()
         if js:
             message += 'Oferte de lucru\n'
             for j in js:
-                message += 'http://%s%s\n' %(request.http_host, URL('default', 'job_offer', args=j.uuid))
+                message += 'http://%s%s\n' %(request.env.http_host, URL('default', 'job_offer', args=j.uuid))
 
         if mail.send(form.vars.email, "Link-uri de editare", message):
             response.flash = T('Thank you, e-mail sent!')

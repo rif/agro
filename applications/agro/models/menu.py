@@ -10,10 +10,6 @@ response.meta.generator = 'Web2py Web Framework'
 ## your http://google.com/analytics id
 response.google_analytics_id = None
 
-#########################################################################
-## this is the main application menu add/remove items as required
-#########################################################################
-
 response.menu = [
     (T('Home'), False, URL('default', 'index'), [])
 ]

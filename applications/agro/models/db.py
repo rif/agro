@@ -48,48 +48,48 @@ if request.uri_language: T.force(request.uri_language)
 import uuid
 
 tracking = db.Table(db, 'tracking',
-                    Field('email', required=True, requires=[IS_EMAIL(), IS_NOT_IN_DB(db, 'status.email')], unique=True, readable=False),
-                    Field('approved', 'boolean', default=False, writable=False, readable=False),
-                    Field('enabled', 'boolean', default=True, writable=False, readable=False),
-                    Field('uuid', default=lambda:str(uuid.uuid4()), writable=False, readable=False),
-                    Field('created_on', 'datetime', default=request.now, writable=False, readable=False),
-                    Field('updated_on', 'datetime', update=request.now, writable=False, readable=False),
+                    Field('email', required=True, requires=[IS_EMAIL(), IS_NOT_IN_DB(db, 'status.email')], unique=True, readable=False. label=T('Email')),
+                    Field('approved', 'boolean', default=False, writable=False, readable=False, label=T('Approved')),
+                    Field('enabled', 'boolean', default=True, writable=False, readable=False, label=T('Enabled')),
+                    Field('uuid', default=lambda:str(uuid.uuid4()), writable=False, readable=False, label=T('UUID')),
+                    Field('created_on', 'datetime', default=request.now, writable=False, readable=False, label=T('Created on')),
+                    Field('updated_on', 'datetime', update=request.now, writable=False, readable=False, label=T('Updated on')),
 )
 
 db._common_fields.append(tracking)
 
 Status = db.define_table('status',
-                         Field('first_name'),
-                         Field('last_name'),                         
-                         Field('phone'),
-                         Field('address', 'text'),
-                         Field('work_place'),
-                         Field('work_field_of_activity'),
-                         Field('work_address', 'text'),
-                         Field('work_position'),
+                         Field('first_name', label=T('First name')),
+                         Field('last_name', label=T('Last name')),                         
+                         Field('phone', label=T('Phone')),
+                         Field('address', label=T('Address')),
+                         Field('work_place', label=T('Work place')),
+                         Field('field_of_activity', label=T('Field of activity')),
+                         Field('work_address', label=T('Work address')),
+                         Field('work_position', label=T('Work position')),
 )
 
 Resume = db.define_table('resume',
-                         Field('photo', 'upload', uploadfield='photo_file'),
-                         Field('photo_file', 'blob'),
-                         Field('first_name'),
-                         Field('last_name'),
-                         Field('city'),
-                         Field('address', 'text'),
-                         Field('phone'),
-                         Field('completed_studies'),
-                         Field('competence_areas', 'list:string'),
-                         Field('foreign_languages', 'list:string'),
+                         Field('photo', 'upload', uploadfield='photo_file', label=T('Photo')),
+                         Field('photo_file', 'blob', , label=T('Photo file')),
+                         Field('first_name', label=T('First name')),
+                         Field('last_name', label=T('Last name')),
+                         Field('city', label=T('City')),
+                         Field('address', label=T('Address')),
+                         Field('phone', label=T('Phone')),
+                         Field('completed_studies', label=T('Completed studies')),
+                         Field('competence_areas', 'list:string', label=T('Competence areas')),
+                         Field('foreign_languages', 'list:string', label=T('Foreign languages')),
 
 )
 
 JobOffer = db.define_table('job_offer',
-                            Field('company_name'),
-                            Field('city'),
-                            Field('address', 'text'),
-                            Field('position_description', 'text'),
-                            Field('available_positions', 'integer'),
-                            Field('offer_expire_date', 'date'),
+                            Field('company_name', label=T('Company name')),
+                            Field('city', label=T('City')),
+                            Field('address', label=T('Address')),
+                            Field('position_description', 'text', label=T('Position description')),
+                            Field('available_positions', 'integer', label=T('Available positions')),
+                            Field('offer_expire_date', 'date', label=T('Offer expire date')),
 )
 
 a0, a1 = request.args(0), request.args(1)

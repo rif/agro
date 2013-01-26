@@ -1,0 +1,33 @@
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="myModalLabel">{{=job.company_name}}</h3>
+  </div>
+  <div class="modal-body">
+   <dl>
+     <dt>{{=T('City')}}</dt>
+     <dd>{{=job.city}}</dd>
+     <dt>{{=T('Available positions')}}</dt>
+     <dd>{{=job.available_positions}}</dd>
+     <dt>{{=T('Position description')}}</dt>
+     <dd>{{=MARKMIN(job.position_description)}}</dd>
+   </dl>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">{{=T('Close')}}</button>
+    <a id="contact-link" href="{{=URL('default', 'contact_job', args=job.id)}}" class="btn btn-primary">{{=T('Contact')}} {{=job.company_name}}</a>
+  </div>
+</div>
+
+<script>
+  $(function(){
+  $("#contact-link").click(function(){
+  var link = $(this);
+  $("#myModal").modal('hide');
+  $("#modal-placeholder").load(link.attr("href"), function(){
+  $("#myModal").modal();
+  });
+  return false;
+  });
+  });
+</script>

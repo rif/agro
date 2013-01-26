@@ -375,7 +375,7 @@ class Response(Storage):
             wrapped = streamer(stream, chunk_size=chunk_size)
         return wrapped
 
-    def download(self, request, db, chunk_size=DEFAULT_CHUNK_SIZE, attachment=True, download_filename=None):
+    def download(self, request, db, chunk_size=DEFAULT_CHUNK_SIZE, attachment=True):
         """
         example of usage in controller::
 
@@ -403,11 +403,9 @@ class Response(Storage):
             raise HTTP(404)
         headers = self.headers
         headers['Content-Type'] = contenttype(name)
-	if download_filename == None:
-	    download_filename = filename
         if attachment:
             headers['Content-Disposition'] = \
-                'attachment; filename="%s"' % download_filename.replace('"','\"')
+                'attachment; filename="%s"' % filename.replace('"','\"')
         return self.stream(stream, chunk_size=chunk_size, request=request)
 
     def json(self, data, default=None):

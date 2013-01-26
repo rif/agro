@@ -1,4 +1,78 @@
-{{left_sidebar_enabled,right_sidebar_enabled=False,True}}
 {{extend 'layout.html'}}
+{{from html import truncate_string}}
 
-{{=grid}}
+{{ if job_offers:}}
+<h3>{{=T('Job Offers')}}</h3>
+<table class="table table-condensed table-hover">
+<thead>
+  <tr>
+    <th>{{=T('Company')}}</th>
+    <th>{{=T('City')}}</th>
+    <th>{{=T('Position')}}</th>
+    <th>{{=T('Available positions')}}</th>
+  </tr>
+</thead>
+<tbody>
+  {{for j in job_offers:}}
+  <tr>
+    <td>{{=j.company_name}}</td>
+    <td>{{=j.city}}</td>
+    <td>{{=j.position_description}}</td>
+    <td>{{=j.available_positions}}</td>
+    <td>
+      <div class="btn-group">
+        <a href="{{=URL('default', 'view_job', args=j.id)}}" class="btn btn-mini btn-link modaler"><i class="icon-search"></i> {{=T('View')}}</a>
+        <a href="{{=URL('default', 'contact_job', args=j.id)}}" class="btn btn-mini btn-link modaler"><i class="icon-envelope"></i> {{=T('Contact')}}</a>
+      </div>
+    </td>
+  </tr>
+  {{pass}}
+</tbody>
+</table>
+{{pass}}
+
+{{if resumes:}}
+<h3>{{=T('Resumes')}}</h3>
+<table class="table table-condensed table-hover">
+<thead>
+  <tr>
+    <th>{{=T('First Name')}}</th>
+    <th>{{=T('Last Name')}}</th>
+    <th>{{=T('Studies')}}</th>
+    <th>{{=T('Competences')}}</th>
+    <th>{{=T('Languages')}}</th>
+  </tr>
+</thead>
+<tbody>
+  {{for r in resumes:}}
+  <tr>
+    <td>{{=r.first_name}}</td>
+    <td>{{=r.last_name}}</td>
+    <td>{{=r.completed_studies}}</td>
+    <td>{{=r.competence_areas}}</td>
+    <td>{{=r.foreign_languages}}</td>
+    <td>
+      <div class="btn-group">
+        <a href="{{=URL('default', 'view_resume', args=r.id)}}" class="btn btn-mini btn-link modaler"><i class="icon-search"></i> {{=T('View')}}</a>
+        <a href="{{=URL('default', 'contact_resume', args=r.id)}}" class="btn btn-mini btn-link modaler"><i class="icon-envelope"></i> {{=T('Contact')}}</a>
+      </div>
+    </td>
+  </tr>
+  {{pass}}
+</tbody>
+</table>
+{{pass}}
+
+<div id="modal-placeholder"></div>
+
+<script>
+  $(function(){
+  $(".modaler").click(function(){
+  var link = $(this);
+  $("#modal-placeholder").load(link.attr("href"), function(){
+  $("#myModal").modal();
+  });
+  return false;
+  });
+  });
+</script>

@@ -1,0 +1,52 @@
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="myModalLabel">{{=resume.first_name}} {{=resume.last_name}}</h3>
+  </div>
+  <div class="modal-body">
+    <img style="float:right" width="200" src="{{=URL('default', 'download', args=resume.photo)}}" alt="photo">
+   <dl>
+     <dt>{{=T('City')}}</dt>
+     <dd>{{=resume.city}}</dd>
+     <dt>{{=T('Completed studies')}}</dt>
+     <dd>{{=resume.completed_studies}}</dd>
+     {{if resume.competence_areas:}}
+     <dt>{{=T('Cometence areas')}}</dt>
+     <dd>
+       <ul>
+       {{for ca in resume.competence_areas:}}
+       <li>{{=ca}}</li>
+       {{pass}}
+       </ul>
+     </dd>
+     {{pass}}
+     {{if resume.foreign_languages:}}
+     <dt>{{=T('Foreign languages')}}</dt>
+     <dd>
+       <ul>
+       {{for fl in resume.foreign_languages:}}
+       <li>{{=fl}}</li>
+       {{pass}}
+       </ul>
+     </dd>
+     {{pass}}
+   </dl>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">{{=T('Close')}}</button>
+    <a id="contact-link" href="{{=URL('default', 'contact_resume', args=resume.id)}}" class="btn btn-primary">{{=T('Contact')}} {{=resume.first_name}} {{=resume.last_name}}</a>
+  </div>
+</div>
+
+<script>
+  $(function(){
+  $("#contact-link").click(function(){
+  var link = $(this);
+  $("#myModal").modal('hide');
+  $("#modal-placeholder").load(link.attr("href"), function(){
+  $("#myModal").modal();
+  });
+  return false;
+  });
+  });
+</script>

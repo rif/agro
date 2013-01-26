@@ -9,7 +9,7 @@ uploads
 databases
 sessions
 errors
-.sass-cache/*
+.sass-cache
 parameters_8000.py
 httpserver.pid
 httpserver.log

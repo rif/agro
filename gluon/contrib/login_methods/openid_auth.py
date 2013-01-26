@@ -129,21 +129,18 @@ class OpenIDAuth(object):
     def _define_alt_login_table(self):
         """
         Define the OpenID login table.
-        Note: oidtype is what I used for our project.
-              We're going to support 'fackbook' and
-              'plurk' alternate login methods.
-              Otherwise it's always 'openid' and you
+        Note: type is what I used for our project. We're going to support 'fackbook' and
+              'plurk' alternate login methods. Otherwise it's always 'openid' and you
               may not need it. This should be easy to changed.
               (Just remove the field of "type" and remove the
-              "and db.alt_logins.oidtype == type_" 
-              in _find_matched_openid function)
+               "and db.alt_logins.type == type_" in _find_matched_openid function)
         """
         db = self.db
         table = db.define_table(
             self.table_alt_logins_name,
             Field('username', length=512, default=''),
-            Field('oidtype', length=128, default='openid', readable=False),
-            Field('oiduser', self.table_user, readable=False),
+            Field('type', length=128, default='openid', readable=False),
+            Field('user', self.table_user, readable=False),
         )
         table.username.requires = IS_NOT_IN_DB(db, table.username)
         self.table_alt_logins = table
@@ -216,7 +213,7 @@ class OpenIDAuth(object):
 
                 # Get existed OpenID user
                 user = db(
-                    self.table_user.id == alt_login.oiduser).select().first()
+                    self.table_user.id == alt_login.user).select().first()
                 if user:
                     if current.session.w2popenid:
                         del(current.session.w2popenid)
@@ -233,7 +230,7 @@ class OpenIDAuth(object):
         Get the matched OpenID for given
         """
         query = (
-            (db.alt_logins.username == oid) & (db.alt_logins.oidtype == type_))
+            (db.alt_logins.username == oid) & (db.alt_logins.type == type_))
         alt_login = db(query).select().first()  # Get the OpenID record
         return alt_login
 
@@ -242,7 +239,7 @@ class OpenIDAuth(object):
         Associate the user logged in with given OpenID
         """
         # print "[DB] %s authenticated" % oid
-        self.db.alt_logins.insert(username=oid, oiduser=user.id)
+        self.db.alt_logins.insert(username=oid, user=user.id)
 
     def _form_with_notification(self):
         """
@@ -403,7 +400,7 @@ width: 400px;
         if 'delete_openid' in request.vars:
             self.remove_openid(request.vars.delete_openid)
 
-        query = self.db.alt_logins.oiduser == self.auth.user.id
+        query = self.db.alt_logins.user == self.auth.user.id
         alt_logins = self.db(query).select()
         l = []
         for alt_login in alt_logins:
@@ -532,7 +529,7 @@ class Web2pyStore(OpenIDStore):
             self.database.define_table(self.table_oid_nonces_name,
                                        Field('server_url',
                                              'string', length=2047, required=True),
-                                       Field('itimestamp',
+                                       Field('timestamp',
                                              'integer', required=True),
                                        Field('salt', 'string',
                                              length=40, required=True)
@@ -594,12 +591,12 @@ class Web2pyStore(OpenIDStore):
         db = self.database
         if abs(timestamp - time.time()) > nonce.SKEW:
             return False
-        query = (db.oid_nonces.server_url == server_url) & (db.oid_nonces.itimestamp == timestamp) & (db.oid_nonces.salt == salt)
+        query = (db.oid_nonces.server_url == server_url) & (db.oid_nonces.timestamp == timestamp) & (db.oid_nonces.salt == salt)
         if db(query).count() > 0:
             return False
         else:
             db.oid_nonces.insert(server_url=server_url,
-                                 itimestamp=timestamp,
+                                 timestamp=timestamp,
                                  salt=salt)
             return True
 
@@ -631,7 +628,7 @@ class Web2pyStore(OpenIDStore):
         """
 
         db = self.database
-        query = (db.oid_nonces.itimestamp < time.time() - nonce.SKEW)
+        query = (db.oid_nonces.timestamp < time.time() - nonce.SKEW)
         return db(query).delete()
 
     def cleanupAssociations(self):

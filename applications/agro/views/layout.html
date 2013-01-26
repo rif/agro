@@ -46,7 +46,12 @@
   response.files.append(URL('static','css/web2py_bootstrap.css'))
   }}
 
-  {{include 'web2py_ajax.html'}}
+
+
+  <link href="{{=URL('static', 'css/screen.css')}}" rel="stylesheet" type="text/css" />
+  <!--[if IE]>
+      <link href="{{=URL('static', 'css/ie.css')}}" rel="stylesheet" type="text/css" />
+  <![endif]-->  {{include 'web2py_ajax.html'}}
 
   {{
   # using sidebars need to know what sidebar you want to use
@@ -65,9 +70,15 @@
 </head>
 
 <body>
-
+  <div class="flash">{{=response.flash or ''}}</div>
   <div class="container">
     <section id="main" class="main row">
+      <ul id="main_menu">
+        <li>{{=A(T("Home"), _href=URL('default','index'))}}</li>
+        <li>{{=A(T("Enter Post Graduate Status"), _href=URL('default','status'))}}</li>
+        <li>{{=A(T("Enter Resume"), _href=URL('default','resume'))}}</li>
+        <li>{{=A(T("Enter Job Offer"), _href=URL('default','job_offer'))}}</li>
+      </ul>
         {{if left_sidebar_enabled:}}
         <div class="span3 left-sidebar">
             {{block left_sidebar}}
@@ -87,12 +98,7 @@
         <div class="span3">
             {{block right_sidebar}}
             <h6>{{=T("Don't know what to do?")}}</h6>
-            <ul>
-              <li>{{=A(T("Home"), _href=URL('default','index'))}}</li>
-              <li>{{=A(T("Enter Post Graduate Status"), _href=URL('default','status'))}}</li>
-              <li>{{=A(T("Enter Resume"), _href=URL('default','resume'))}}</li>
-              <li>{{=A(T("Enter Work Offer"), _href=URL('default','work_offer'))}}</li>
-            </ul>
+
             {{end}}
         </div>
         {{pass}}

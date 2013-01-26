@@ -1686,9 +1686,6 @@ SQLITE = set((
     'WHERE',
 ))
 
-
-MONGODB_NONRESERVED = set(('SAFE',))
-
 # remove from here when you add a list.
 JDBCSQLITE = SQLITE
 DB2 = INFORMIX = INGRES = JDBCPOSTGRESQL = COMMON
@@ -1711,7 +1708,6 @@ ADAPTERS = {
     'jdbc:sqlite': JDBCSQLITE,
     'jdbc:postgres': JDBCPOSTGRESQL,
     'common': COMMON,
-    'mongodb_nonreserved': MONGODB_NONRESERVED
 }
 
 ADAPTERS['all'] = reduce(lambda a, b: a.union(b), (

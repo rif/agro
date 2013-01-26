@@ -1,0 +1,27 @@
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="myModalLabel">{{=T('Send message to')}}: {{=job.company_name}}</h3>
+  </div>
+  <div class="modal-body">
+  {{=form.custom.begin}}
+     {{=T('Subject')}}: <div>{{=form.custom.widget.subject}}</div>
+     {{=T('Message')}}: <div>{{=form.custom.widget.message}}</div>
+  {{=form.custom.end}}
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">{{=T('Close')}}</button>
+    <a href="{{=URL('default', 'contact_job', args=job.id)}}" id="send-message" class="btn btn-primary">{{=T('Send message')}}</a>
+  </div>
+</div>
+
+<script>
+  $(function(){
+  $("#send-message").click(function(){
+  $.post($(this).attr("href"), $("#myModal form").serialize(), function(){
+  window.location = "{{=URL('default', 'index')}}";
+  });
+  return false;
+  });
+  });
+</script>

@@ -30,7 +30,7 @@ auth.define_tables(username=False, signature=False)
 ## configure email
 mail = auth.settings.mailer
 mail.settings.server = 'gae'
-mail.settings.sender = 'fericean@gmail.com'
+mail.settings.sender = 'usamvb.tm@gmail.com'
 #mail.settings.login = 'username:password'
 
 ## configure auth policy

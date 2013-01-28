@@ -9,7 +9,7 @@ def index():
 def status():
     s = db(Status.uuid==a0).select().first() if a0 else None
     m = T('Thank you! Your status was recorded.')
-    if s:
+    if s:        
         form = crud.update(Status, s.id, next=URL("index"), deletable=False, message=m)
     else:        
         form = crud.create(Status, next=URL("index"), onaccept=new_status, message=m)
@@ -21,7 +21,8 @@ def resume():
     r = db(Resume.uuid==a0).select().first() if a0 else None
     m = T('Thank you! Your resume was recorded and is pendng approval.')
     if r:
-        form = crud.update(Resume, r.id, next=URL("index"), deletable=False, message=m)
+        r.update_record(approved=False)
+        form = crud.update(Resume, r.id, next=URL("index"), onaccept=new_resume, deletable=False, message=m)
     else:        
         form = crud.create(Resume, next=URL("index"), onaccept=new_resume, message=m)
     info = T('Part of the information entered here will be made publicly available. We will not display your contact information.')
@@ -55,7 +56,8 @@ def job_offer():
     j = db(JobOffer.uuid==a0).select().first() if a0 else None
     m = T('Thank you! Your job offer was recorded and is pendng approval.')
     if j:
-        form = crud.update(JobOffer, j.id, next=URL("index"), deletable=False, message=m)
+        j.update_record(approved=False)
+        form = crud.update(JobOffer, j.id, next=URL("index"), onaccept=new_job_offer, deletable=False, message=m)
     else:        
         form = crud.create(JobOffer, next=URL("index"), onaccept=new_job_offer, message=m)
     info = T('Part of the information entered here will be made publicly available.')

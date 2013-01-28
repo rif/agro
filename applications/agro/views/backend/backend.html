@@ -1,11 +1,11 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,True}}
 {{extend 'layout.html'}}
-<div style="float:right; font-size:.9em;">
+<div style="float:right; font-size:.9em; margin-right: 30px">
     {{=auth.navbar()}}
 </div>
 
     <h1>{{=T('Statistics')}}</h1>
-    <div class="row">
+    <div class="row-fluid">
         <div class="span6">
             <dl class="dl-horizontal">
                 <dt>{{=T('Statuses')}}</dt><dd>{{=db(Status).count()}}</dd>
@@ -13,7 +13,7 @@
                 <dt>{{=T('Job offers')}}</dt><dd>{{=db(active_job_offers).count()}}/{{=db(JobOffer).count()}}</dd>
             </dl>
         </div>
-        <div class="span6">
+        <div class="span5">
             <dl class="dl-horizontal">            
                 <dt>{{=T('Resume contacts')}}</dt><dd>{{=db(Counter).select().first().resume_contact}}</dd>
                 <dt>{{=T('Job contacts')}}</dt><dd>{{=db(Counter).select().first().job_contact}}</dd>
@@ -22,7 +22,7 @@
     </div>
 
 <h4>{{=T('To be approved')}}</h4>
-<div class="row">
+<div class="row-fluid">
     <div class="span6">
     <h5>{{=T('Resumes')}}</h5>
     {{if resumes:}}            
@@ -61,7 +61,7 @@
     <p>{{=T('No resumes to approve.')}}</p>
     {{pass}}
     </div>
-    <div class="span6">
+    <div class="span5">
     <h5>{{=T('Job offers')}}</h5>
     {{if job_offers:}}            
         <div class="accordion" id="accordion3">

@@ -64,8 +64,8 @@
 
 <body>
   <div class="flash">{{=response.flash or ''}}</div>
-  <div class="container">    
-    <section id="main" class="main row">
+  <div class="container-fluid">    
+    <section id="main" class="main row-fluid">
       <div class="btn-group">
         {{=A(T("Home"), _class="btn btn-warning btn-mini", _href=URL('default','index'))}}
         {{=A(T("Enter Post Graduate Status"), _class="btn btn-mini", _href=URL('default','status'))}}

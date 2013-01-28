@@ -50,7 +50,7 @@ import uuid
 tracking = db.Table(db, 'tracking',
                     Field('email', required=True, requires=[IS_EMAIL(), IS_NOT_IN_DB(db, 'status.email')], unique=True, readable=False, label=T('Email')),
                     Field('approved', 'boolean', default=False, writable=False, readable=False, label=T('Approved')),
-                    Field('enabled', 'boolean', default=True, writable=False, readable=False, label=T('Enabled')),
+                    Field('enabled', 'boolean', default=True, label=T('Enabled'), help=T('if you later decide to disable the entry')), 
                     Field('uuid', default=lambda:str(uuid.uuid4()), writable=False, readable=False, label=T('UUID')),
                     Field('created_on', 'datetime', default=request.now, writable=False, readable=False, label=T('Created on')),
                     Field('updated_on', 'datetime', update=request.now, writable=False, readable=False, label=T('Updated on')),
@@ -100,7 +100,7 @@ def new_status(form):
     mail.send(form.vars.email,
               "USAMVBT",
               "Puteti edita statusul domneavoastra accesand %s.\n Cu respect,\nUSAMB" % URL('default', 'status', args=form.vars.uuid))
-    mail.send(to=[a['id'] for a in db(db.auth_user.registration_key == '').select().as_list()],
+    mail.send(to=[a['email'] for a in db(db.auth_user.registration_key == '').select().as_list()],
               subject="USABMV Apps: Status nou pentru aprobat",
               message="Accesati status aici: id=" % form.vars.id)
 
@@ -108,7 +108,7 @@ def new_resume(form):
     mail.send(form.vars.email,
               "USAMVBT",
               "Puteti edita CV-ul domneavoastra accesand %s.\n Cu respect,\nUSAMB" % URL('default', 'resume', args=form.vars.uuid))
-    mail.send(to=[a['id'] for a in db(db.auth_user.registration_key == '').select().as_list()],
+    mail.send(to=[a['email'] for a in db(db.auth_user.registration_key == '').select().as_list()],
               subject="USABMV Apps: CV nou pentru aprobat",
               message="Accesati CV-ul aici: id=" % form.vars.id)
 
@@ -117,6 +117,6 @@ def new_job_offer(form):
     mail.send(form.vars.email,
               "USAMVBT",
               "Puteti edita oferta domneavoastra accesand %s.\n Cu respect,\nUSAMB" % URL('default', 'job_offer', args=form.vars.uuid))
-    mail.send(to=[a['id'] for a in db(db.auth_user.registration_key == '').select().as_list()],
+    mail.send(to=[a['email'] for a in db(db.auth_user.registration_key == '').select().as_list()],
               subject="USABMV Apps: Oferta de lucru noua pentru aprobat",
               message="Accesati oferta aici: id=" % form.vars.id)

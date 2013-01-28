@@ -17,7 +17,7 @@
   <tr>
     <td>{{=j.company_name}}</td>
     <td>{{=j.city}}</td>
-    <td>{{=j.position_description}}</td>
+    <td>{{=truncate_string(j.position_description, 50)}}</td>
     <td>{{=j.available_positions}}</td>
     <td>
       <div class="btn-group">

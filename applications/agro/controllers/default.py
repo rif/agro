@@ -11,8 +11,7 @@ def status():
     if s:
         form = crud.update(Status, s.id, next=URL("index"), deletable=False, message=m)
     else:        
-        form = crud.create(Status, next=URL("index"),
-                           onaccept=lambda form: mail.send(form.vars.email, "USAMVBT", "Puteti edita statusul domneavoastra accesand %s.\n Cu respect,\nUSAMB" % URL('default', 'status', args=form.vars.uuid)), message=m)
+        form = crud.create(Status, next=URL("index"), onaccept=new_entry, message=m)
     response.view = 'default/form.html'
     return locals()
 
@@ -22,8 +21,7 @@ def resume():
     if r:
         form = crud.update(Resume, r.id, next=URL("index"), deletable=False, message=m)
     else:        
-        form = crud.create(Resume, next=URL("index"),
-                           onaccept=lambda form: mail.send(form.vars.email, "USAMVBT", "Puteti edita cv-ul domneavoastra accesand %s.\n Cu respect,\nUSAMB" % URL('default', 'resume', args=form.vars.uuid)), message=m)
+        form = crud.create(Resume, next=URL("index"), onaccept=new_resume, message=m)
     response.view = 'default/form.html'
     return locals()
 
@@ -54,8 +52,7 @@ def job_offer():
     if j:
         form = crud.update(JobOffer, j.id, next=URL("index"), deletable=False, message=m)
     else:        
-        form = crud.create(JobOffer, next=URL("index"),
-                           onaccept=lambda form: mail.send(form.vars.email, "USAMVBTM", "Puteti edita cv-ul domneavoastra accesand %s.\n Cu respect,\nUSAMB" % URL('default', 'resume', args=form.vars.uuid)), message=m)
+        form = crud.create(JobOffer, next=URL("index"), onaccept=new_job_offer, message=m)
     response.view = 'default/form.html'
     return locals()
 

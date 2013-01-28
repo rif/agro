@@ -95,3 +95,28 @@ JobOffer = db.define_table('job_offer',
 a0, a1 = request.args(0), request.args(1)
 active_resumes = ((Resume.approved == True) & (Resume.enabled == True))
 active_job_offers = ((JobOffer.approved == True) & (JobOffer.enabled == True) & (JobOffer.offer_expire_date > request.now))
+
+def new_status(form):
+    mail.send(form.vars.email,
+              "USAMVBT",
+              "Puteti edita statusul domneavoastra accesand %s.\n Cu respect,\nUSAMB" % URL('default', 'status', args=form.vars.uuid))
+    mail.send(to=[a['id'] for a in db(db.auth_user.registration_key == '').select().as_list()],
+              subject="USABMV Apps: Status nou pentru aprobat",
+              message="Accesati status aici: id=" % form.vars.id)
+
+def new_resume(form):
+    mail.send(form.vars.email,
+              "USAMVBT",
+              "Puteti edita CV-ul domneavoastra accesand %s.\n Cu respect,\nUSAMB" % URL('default', 'resume', args=form.vars.uuid))
+    mail.send(to=[a['id'] for a in db(db.auth_user.registration_key == '').select().as_list()],
+              subject="USABMV Apps: CV nou pentru aprobat",
+              message="Accesati CV-ul aici: id=" % form.vars.id)
+
+
+def new_job_offer(form):
+    mail.send(form.vars.email,
+              "USAMVBT",
+              "Puteti edita oferta domneavoastra accesand %s.\n Cu respect,\nUSAMB" % URL('default', 'job_offer', args=form.vars.uuid))
+    mail.send(to=[a['id'] for a in db(db.auth_user.registration_key == '').select().as_list()],
+              subject="USABMV Apps: Oferta de lucru noua pentru aprobat",
+              message="Accesati oferta aici: id=" % form.vars.id)

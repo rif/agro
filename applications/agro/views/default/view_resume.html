@@ -9,27 +9,13 @@
      <dt>{{=T('City')}}</dt>
      <dd>{{=resume.city}}</dd>
      <dt>{{=T('Completed studies')}}</dt>
-     <dd>{{=resume.completed_studies}}</dd>
-     {{if resume.competence_areas:}}
+     <dd>{{=resume.completed_studies}}</dd>     
      <dt>{{=T('Cometence areas')}}</dt>
-     <dd>
-       <ul>
-       {{for ca in resume.competence_areas:}}
-       <li>{{=ca}}</li>
-       {{pass}}
-       </ul>
-     </dd>
-     {{pass}}
-     {{if resume.foreign_languages:}}
+     <dd>{{=resume.competence_areas}}</dd>          
      <dt>{{=T('Foreign languages')}}</dt>
-     <dd>
-       <ul>
-       {{for fl in resume.foreign_languages:}}
-       <li>{{=fl}}</li>
-       {{pass}}
-       </ul>
-     </dd>
-     {{pass}}
+     <dd>{{=resume.foreign_languages}}</dd>
+     <dt>{{=T('Other info')}}</dt>
+     <dd>{{=MARKMIN(resume.other_info)}}</dd>
    </dl>
   </div>
   <div class="modal-footer">

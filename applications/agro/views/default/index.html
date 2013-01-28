@@ -49,8 +49,9 @@
     <td>{{=r.first_name}}</td>
     <td>{{=r.last_name}}</td>
     <td>{{=r.completed_studies}}</td>
-    <td>{{=r.competence_areas}}</td>
-    <td>{{=r.foreign_languages}}</td>
+    <td>{{=truncate_string(r.competence_areas, 50)}}</td>
+    <td>{{=truncate_string(r.foreign_languages, 50)}}</td>
+    <td>{{=truncate_string(r.other_info, 50)}}</td>
     <td>
       <div class="btn-group">
         <a href="{{=URL('default', 'view_resume', args=r.id)}}" class="btn btn-mini btn-link modaler"><i class="icon-search"></i> {{=T('View')}}</a>

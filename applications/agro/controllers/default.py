@@ -13,6 +13,7 @@ def status():
         form = crud.update(Status, s.id, next=URL("index"), deletable=False, message=m)
     else:        
         form = crud.create(Status, next=URL("index"), onaccept=new_status, message=m)
+    info = T('Information entered here is confidential. It will NOT be displayed publicly.')
     response.view = 'default/form.html'
     return locals()
 
@@ -23,6 +24,7 @@ def resume():
         form = crud.update(Resume, r.id, next=URL("index"), deletable=False, message=m)
     else:        
         form = crud.create(Resume, next=URL("index"), onaccept=new_resume, message=m)
+    info = T('Part of the information entered here will be made publicly available. We will not display your contact information.')
     response.view = 'default/form.html'
     return locals()
 
@@ -56,6 +58,7 @@ def job_offer():
         form = crud.update(JobOffer, j.id, next=URL("index"), deletable=False, message=m)
     else:        
         form = crud.create(JobOffer, next=URL("index"), onaccept=new_job_offer, message=m)
+    info = T('Part of the information entered here will be made publicly available.')
     response.view = 'default/form.html'
     return locals()
 

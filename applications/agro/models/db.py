@@ -77,8 +77,9 @@ Resume = db.define_table('resume',
     Field('address', label=T('Address')),
     Field('phone', label=T('Phone')),
     Field('completed_studies', label=T('Completed studies')),
-    Field('competence_areas', 'list:string', label=T('Competence areas')),
-    Field('foreign_languages', 'list:string', label=T('Foreign languages')),
+    Field('competence_areas', label=T('Competence areas')),
+    Field('foreign_languages', label=T('Foreign languages')),
+    Field('other_info', 'text', label=T('Other info')),
     Field('email', required=True, requires=[IS_EMAIL(), IS_NOT_IN_DB(db, 'resume.email')], unique=True, readable=False, label=T('Email')),
     tracking
 

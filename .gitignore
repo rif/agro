@@ -14,4 +14,4 @@ parameters_8000.py
 httpserver.pid
 httpserver.log
 welcome.w2p
-
+*.komodoproject

@@ -3,7 +3,8 @@
 def index():
     resumes = db(active_resumes).select()
     job_offers = db(active_job_offers).select()
-    return locals()
+    return locals()    
+
 
 def status():
     s = db(Status.uuid==a0).select().first() if a0 else None
@@ -11,7 +12,7 @@ def status():
     if s:
         form = crud.update(Status, s.id, next=URL("index"), deletable=False, message=m)
     else:        
-        form = crud.create(Status, next=URL("index"), onaccept=new_entry, message=m)
+        form = crud.create(Status, next=URL("index"), onaccept=new_status, message=m)
     response.view = 'default/form.html'
     return locals()
 
@@ -40,6 +41,8 @@ def contact_resume():
         else:
             if mail.send(resume.email, form.vars.subject or 'USAMVBT', form.vars.message):
                 session.flash = T('Thank you, e-mail sent!')
+                c = db(Counter).select().first()
+                c.update_record(resume_contact = c.resume_contact + 1)
             else:
                 session.flash = T('E-mail sending failed. Please contact the site administration!')
     elif form.errors:
@@ -71,6 +74,8 @@ def contact_job():
         else:
             if mail.send(job.email, form.vars.subject, form.vars.message):
                 session.flash = T('Thank you, e-mail sent!')
+                c = db(Counter).select().first()
+                c.update_record(job_contact = c.job_contact + 1)
             else:
                 session.flash = T('E-mail sending failed. Please contact the site administration!')
     elif form.errors:

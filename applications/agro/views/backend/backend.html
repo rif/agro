@@ -1,4 +1,108 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,True}}
 {{extend 'layout.html'}}
-<h3>{{=T('Admin')}}</h3>
-{{=auth.navbar()}}
+<div style="float:right; font-size:.9em;">
+    {{=auth.navbar()}}
+</div>
+
+    <h1>{{=T('Statistics')}}</h1>
+    <div class="row">
+        <div class="span6">
+            <dl class="dl-horizontal">
+                <dt>{{=T('Statuses')}}</dt><dd>{{=db(Status).count()}}</dd>
+                <dt>{{=T('Resumes')}}</dt><dd>{{=db(active_resumes).count()}}/{{=db(Resume).count()}}</dd>
+                <dt>{{=T('Job offers')}}</dt><dd>{{=db(active_job_offers).count()}}/{{=db(JobOffer).count()}}</dd>
+            </dl>
+        </div>
+        <div class="span6">
+            <dl class="dl-horizontal">            
+                <dt>{{=T('Resume contacts')}}</dt><dd>{{=db(Counter).select().first().resume_contact}}</dd>
+                <dt>{{=T('Job contacts')}}</dt><dd>{{=db(Counter).select().first().job_contact}}</dd>
+            </dl>
+        </div>
+    </div>
+
+<h4>{{=T('To be approved')}}</h4>
+<div class="row">
+    <div class="span6">
+    <h5>{{=T('Resumes')}}</h5>
+    {{if resumes:}}            
+        <div class="accordion" id="accordion2">
+            {{ for i,r in enumerate(resumes): }}    
+            <div class="accordion-group">    
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse2{{=i}}">
+                  {{=r.first_name}} {{=r.last_name}}
+                </a>
+              </div>
+              <div id="collapse2{{=i}}" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <dl class="dl-horizontal">
+                        <img style="float:right" width="150" src="{{=URL('default', 'download', args=r.photo)}}" alt="photo">
+                        <dt>{{=T('First name')}}</dt><dd>{{=r.first_name}}</dd>
+                        <dt>{{=T('Last name')}}</dt><dd>{{=r.last_name}}</dd>
+                        <dt>{{=T('City')}}</dt><dd>{{=r.city}}</dd>
+                        <dt>{{=T('Address')}}</dt><dd>{{=r.address}}</dd>                
+                        <dt>{{=T('Completed studies')}}</dt><dd>{{=r.completed_studies}}</dd>
+                        <dt>{{=T('Competence areas')}}</dt><dd>{{=XML("<br>".join(r.competence_areas))}}</dd>
+                        <dt>{{=T('Foreign languages')}}</dt><dd>{{=XML("<br>".join(r.foreign_languages))}}</dd>
+                        <dt>{{=T('E-mail')}}</dt><dd>{{=r.email}}</dd>
+                    </dl>
+                    <div style="float:right">
+                        <a class="ajax-link btn btn-primary" href="{{=URL('backend', 'approve_resume', args=r.id)}}">Approve</a>
+                        <a class="ajax-link btn btn-danger" href="{{=URL('backend', 'delete_resume', args=r.id)}}">Delete</a>
+                    </div>
+                </div>
+              </div>
+            </div>    
+            {{ pass }}
+        </div>    
+    {{else:}}
+    <p>{{=T('No resumes to approve.')}}</p>
+    {{pass}}
+    </div>
+    <div class="span6">
+    <h5>{{=T('Job offers')}}</h5>
+    {{if job_offers:}}            
+        <div class="accordion" id="accordion3">
+            {{ for i,j in enumerate(job_offers): }}    
+            <div class="accordion-group">    
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse3{{=i}}">
+                  {{=j.company_name}}
+                </a>
+              </div>
+              <div id="collapse3{{=i}}" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <dl class="dl-horizontal">
+                        <dt>{{=T('Company name')}}</dt><dd>{{=j.company_name}}</dd>            
+                        <dt>{{=T('City')}}</dt><dd>{{=j.city}}</dd>
+                        <dt>{{=T('Address')}}</dt><dd>{{=j.address}}</dd>                
+                        <dt>{{=T('Position description')}}</dt><dd>{{=j.position_description}}</dd>
+                        <dt>{{=T('Available positions')}}</dt><dd>{{=j.available_positions}}</dd>
+                        <dt>{{=T('Offer expire date')}}</dt><dd>{{=j.offer_expire_date}}</dd>
+                        <dt>{{=T('E-mail')}}</dt><dd>{{=j.email}}</dd>
+                    </dl>
+                    <div style="float:right">
+                        <a class="ajax-link btn btn-primary" href="{{=URL('backend', 'approve_job_offer', args=j.id)}}">Approve</a>
+                        <a class="ajax-link btn btn-danger" href="{{=URL('backend', 'delete_job_offer', args=j.id)}}">Delete</a>
+                    </div>
+                </div>
+              </div>
+            </div>    
+            {{ pass }}
+        </div>    
+    {{else:}}
+    <p>{{=T('No job offers to approve.')}}</p>
+    {{pass}}
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $(".ajax-link").click(function(){
+            var link = $(this);
+            link.parent().load(link.attr("href"));
+            return false;
+        });
+    });
+</script>

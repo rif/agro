@@ -1,4 +1,4 @@
-{{left_sidebar_enabled,right_sidebar_enabled=False,True}}
+{{right_sidebar_enabled=True}}
 {{extend 'layout.html'}}
 <div style="float:right; font-size:.9em; margin-right: 30px">
     {{=auth.navbar()}}
@@ -37,7 +37,7 @@
               <div id="collapse2{{=i}}" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <dl class="dl-horizontal">
-                        <img style="float:right" width="150" src="{{=URL('default', 'download', args=r.photo)}}" alt="photo">
+                        <img class="pull-right" width="150" src="{{=URL('default', 'download', args=r.photo)}}" alt="photo">
                         <dt>{{=T('First name')}}</dt><dd>{{=r.first_name}}</dd>
                         <dt>{{=T('Last name')}}</dt><dd>{{=r.last_name}}</dd>
                         <dt>{{=T('City')}}</dt><dd>{{=r.city}}</dd>
@@ -48,7 +48,7 @@
                         <dt>{{=T('Other info')}}</dt><dd>{{=MARKMIN(r.other_info)}}</dd>
                         <dt>{{=T('E-mail')}}</dt><dd>{{=r.email}}</dd>
                     </dl>
-                    <div style="float:right">
+                    <div class="pull-right">
                         <a class="ajax-link btn btn-primary" href="{{=URL('backend', 'approve_resume', args=r.id)}}">Approve</a>
                         <a class="ajax-link btn btn-danger" href="{{=URL('backend', 'delete_resume', args=r.id)}}">Delete</a>
                     </div>
@@ -83,7 +83,7 @@
                         <dt>{{=T('Offer expire date')}}</dt><dd>{{=j.offer_expire_date}}</dd>                        
                         <dt>{{=T('E-mail')}}</dt><dd>{{=j.email}}</dd>
                     </dl>
-                    <div style="float:right">
+                    <div class="pull-right">
                         <a class="ajax-link btn btn-primary" href="{{=URL('backend', 'approve_job_offer', args=j.id)}}">Approve</a>
                         <a class="ajax-link btn btn-danger" href="{{=URL('backend', 'delete_job_offer', args=j.id)}}">Delete</a>
                     </div>

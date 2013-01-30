@@ -51,8 +51,7 @@
       <link href="{{=URL('static', 'css/ie.css')}}" rel="stylesheet" type="text/css" />
   <![endif]-->  {{include 'web2py_ajax.html'}}
 
-    {{right_sidebar_enabled = globals().get('right_sidebar_enabled',False)}}
-
+  {{right_sidebar_enabled = globals().get('right_sidebar_enabled',False)}}
 
   <!-- uncomment here to load jquery-ui
        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" type="text/css" media="all" />
@@ -87,7 +86,19 @@
             {{end}}
         </div>    
     </section><!--/main-->
-    {{=A(T("Admin"),_target='_blank', _style='float: right; font-size: 10px', _href=URL('backend','backend'))}}
+	<!-- Footer ================================================== -->
+    <div class="row">
+        <footer class="footer span12" id="footer">
+            <div class="footer-content">
+                {{block footer}} <!-- this is default footer -->
+                <div class="copyright pull-left" style="font-size:10px">{{=T('Made by')}} <a style="font-size: 10px; color:#D14" href="http://www.fericean.ro" target="_blank">rif</a></div>
+                <div id="poweredBy" class="pull-right">
+	             {{=A(T("Admin"),_target='_blank', _style='font-size: 10px', _href=URL('backend','backend'))}}
+                </div>
+                {{end}}
+            </div>
+        </footer>
+    </div>
   </div> <!-- /container -->
 
   <!-- The javascript =============================================

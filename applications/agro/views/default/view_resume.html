@@ -4,7 +4,7 @@
     <h3 id="myModalLabel">{{=resume.first_name}} {{=resume.last_name}}</h3>
   </div>
   <div class="modal-body">
-    <img style="float:right" width="200" src="{{=URL('default', 'download', args=resume.photo)}}" alt="photo">
+    <img class="pull-right" width="200" src="{{=URL('default', 'download', args=resume.photo)}}" alt="photo">
    <dl>
      <dt>{{=T('City')}}</dt>
      <dd>{{=resume.city}}</dd>

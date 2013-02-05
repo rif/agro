@@ -248,6 +248,7 @@
 'Logout': 'Ieșire',
 'Lost Password': 'Parolă pierdută',
 'Lost password?': 'Parolă pierdută?',
+'Made by': 'Creat de',
 'Main Menu': 'Meniu principal',
 'Manage Cache': 'Manage Cache',
 'Menu Model': 'Model meniu',

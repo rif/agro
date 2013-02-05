@@ -9,14 +9,13 @@
         <div class="span6">
             <dl class="dl-horizontal">
                 <dt>{{=T('Statuses')}}</dt><dd>{{=db(Status).count()}}</dd>
-                <dt>{{=T('Resumes')}}</dt><dd>{{=db(active_resumes).count()}}/{{=db(Resume).count()}}</dd>
-                <dt>{{=T('Job offers')}}</dt><dd>{{=db(active_job_offers).count()}}/{{=db(JobOffer).count()}}</dd>
+                <dt>{{=T('Resumes')}}</dt><dd>{{=db(active_resumes).count()}}/{{=db(Resume).count()}}</dd>                
             </dl>
         </div>
         <div class="span5">
-            <dl class="dl-horizontal">            
-                <dt>{{=T('Resume contacts')}}</dt><dd>{{=db(Counter).select().first().resume_contact}}</dd>
-                <dt>{{=T('Job contacts')}}</dt><dd>{{=db(Counter).select().first().job_contact}}</dd>
+            <dl class="dl-horizontal">
+                <dt>{{=T('Job offers')}}</dt><dd>{{=db(active_job_offers).count()}}/{{=db(JobOffer).count()}}</dd>
+                <dt>{{=T('Replay messages')}}</dt><dd>{{=db(Message).count()}}</dd>                
             </dl>
         </div>
     </div>

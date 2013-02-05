@@ -36,18 +36,19 @@ def view_resume():
 def contact_resume():
     resume = Resume(a0) or redirect(URL('index'))
     form = SQLFORM.factory(
+        Field('email', requires=[IS_NOT_EMPTY(), IS_EMAIL()]),
         Field('subject'),
         Field('message', 'text'))
     if form.process().accepted:
         if not form.vars.message.strip():
             session.flash = T('Sorry, no message to send!')
         else:
-            if mail.send(resume.email, form.vars.subject or 'USAMVBT', form.vars.message):
-                session.flash = T('Thank you, e-mail sent!')
-                c = db(Counter).select().first()
-                c.update_record(resume_contact = c.resume_contact + 1)
-            else:
-                session.flash = T('E-mail sending failed. Please contact the site administration!')
+            mid = Message.insert(email=form.vars.email, to=resume.email, subject=form.vars.subject, content=form.vars.message)
+            m = Message(mid)
+            mail.send(form.vars.email, T('Confirm your email address!'), 'An message was sent on usambv apps using your email address.\n\
+            To confirm your email addres click on the link below:\n%s\n\
+            If you did not sent this message, please ignore this email!' % URL('default', 'validate_message', args=m.uuid))
+            session.flash = T('An email was send to your address for identity confirmation!')
     elif form.errors:
         session.flash = T('form has errors')
     return locals()
@@ -71,21 +72,35 @@ def view_job():
 def contact_job():
     job = JobOffer(a0) or redirect(URL('index'))
     form = SQLFORM.factory(
+        Field('email', requires=[IS_NOT_EMPTY(), IS_EMAIL()]),
         Field('subject'),
         Field('message', 'text'))
     if form.process().accepted:
         if not form.vars.message.strip():
             session.flash = T('Sorry, no message to send!')
         else:
-            if mail.send(job.email, form.vars.subject, form.vars.message):
-                session.flash = T('Thank you, e-mail sent!')
-                c = db(Counter).select().first()
-                c.update_record(job_contact = c.job_contact + 1)
-            else:
-                session.flash = T('E-mail sending failed. Please contact the site administration!')
+            mid = Message.insert(email=form.vars.email, to=job.email, subject=form.vars.subject, content=form.vars.message)
+            m = Message(mid)
+            mail.send(form.vars.email, T('Confirm your email address!'), 'An message was sent on usambv apps using your email address.\n\
+            To confirm your email addres click on the link below:\n%s\n\
+            If you did not sent this message, please ignore this email!' % URL('default', 'validate_message', args=m.uuid))
+            session.flash = T('An email was send to your address for identity confirmation!')
     elif form.errors:
         session.flash = T('form has errors')
     return locals()
+
+def validate_message():
+    m = db(Message.uuid==a0).select().first() if a0 else None
+    if not m:
+        response.flash(T("invalid message!"))
+        redirect(URL('index'))
+    else:
+        m.update_record(approved=True)
+        if mail.send(m.to, m.subject, m.content, reply_to=m.email):
+            response.flash = T('Thank you, e-mail sent!')
+        else:
+            response.flash = T('E-mail sending failed. Please contact the site administration!')
+    return dict()
 
 def recover():
     form = SQLFORM.factory(Field('email', requires=IS_EMAIL()))

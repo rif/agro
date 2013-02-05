@@ -96,9 +96,12 @@ JobOffer = db.define_table('job_offer',
     tracking
 )
 
-Counter = db.define_table('counter',    
-    Field('resume_contact', 'integer', default=0),
-    Field('job_contact', 'integer', default=0),
+Message = db.define_table('message',
+    Field('email'),
+    Field('to'),
+    Field('subject'),
+    Field('content'),
+    tracking
 )
 
 #if db(Counter).count() == 0: Counter.insert()

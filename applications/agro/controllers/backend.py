@@ -27,6 +27,13 @@ def job_offers():
     return locals()
 
 @auth.requires_membership('admins')
+def messages():
+    grid = SQLFORM.grid(Message)
+    response.title = T('Messages')
+    response.view = 'backend/grid.html'
+    return locals()
+
+@auth.requires_membership('admins')
 def approve_resume():
     r = Resume(a0)
     if r: r.update_record(approved=True)

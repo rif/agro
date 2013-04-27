@@ -8,14 +8,14 @@
     <div class="row-fluid">
         <div class="span6">
             <dl class="dl-horizontal">
-                <dt>{{=T('Statuses')}}</dt><dd>{{=db(Status).count()}}</dd>
-                <dt>{{=T('Resumes')}}</dt><dd>{{=db(active_resumes).count()}}/{{=db(Resume).count()}}</dd>                
+                <td>{{=T('Statuses')}}</td><td>{{=db(Status).count()}}</td>
+                <td>{{=T('Resumes')}}</td><td>{{=db(active_resumes).count()}}/{{=db(Resume).count()}}</td>                
             </dl>
         </div>
         <div class="span5">
             <dl class="dl-horizontal">
-                <dt>{{=T('Job offers')}}</dt><dd>{{=db(active_job_offers).count()}}/{{=db(JobOffer).count()}}</dd>
-                <dt>{{=T('Replay messages')}}</dt><dd>{{=db(Message).count()}}</dd>                
+                <td>{{=T('Job offers')}}</td><td>{{=db(active_job_offers).count()}}/{{=db(JobOffer).count()}}</td>
+                <td>{{=T('Replay messages')}}</td><td>{{=db(Message).count()}}</td>                
             </dl>
         </div>
     </div>
@@ -35,18 +35,18 @@
               </div>
               <div id="collapse2{{=i}}" class="accordion-body collapse">
                 <div class="accordion-inner">
-                    <dl class="dl-horizontal">
-                        <img class="pull-right" width="150" src="{{=URL('default', 'download', args=r.photo)}}" alt="photo">
-                        <dt>{{=T('First name')}}</dt><dd>{{=r.first_name}}</dd>
-                        <dt>{{=T('Last name')}}</dt><dd>{{=r.last_name}}</dd>
-                        <dt>{{=T('City')}}</dt><dd>{{=r.city}}</dd>
-                        <dt>{{=T('Address')}}</dt><dd>{{=r.address}}</dd>                
-                        <dt>{{=T('Completed studies')}}</dt><dd>{{=r.completed_studies}}</dd>
-                        <dt>{{=T('Competence areas')}}</dt><dd>{{=r.competence_areas}}</dd>
-                        <dt>{{=T('Foreign languages')}}</dt><dd>{{=r.foreign_languages}}</dd>
-                        <dt>{{=T('Other info')}}</dt><dd>{{=MARKMIN(r.other_info)}}</dd>
-                        <dt>{{=T('E-mail')}}</dt><dd>{{=r.email}}</dd>
-                    </dl>
+                    <img class="pull-right" witdh="150" src="{{=URL('default', 'download', args=r.photo)}}" alt="photo">
+                    <table class="table-striped table-condensed">                        
+                        <tr><td>{{=T('First name')}}</td><td>{{=r.first_name}}</td></tr>
+                        <tr><td>{{=T('Last name')}}</td><td>{{=r.last_name}}</td></tr>
+                        <tr><td>{{=T('City')}}</td><td>{{=r.city}}</td></tr>
+                        <tr><td>{{=T('Address')}}</td><td>{{=r.address}}</td></tr>       
+                        <tr><td>{{=T('Completed studies')}}</td><td>{{=r.completed_studies}}</td></tr>
+                        <tr><td>{{=T('Competence areas')}}</td><td>{{=r.competence_areas}}</td></tr>
+                        <tr><td>{{=T('Foreign languages')}}</td><td>{{=r.foreign_languages}}</td></tr>
+                        <tr><td>{{=T('Other info')}}</td><td>{{=MARKMIN(r.other_info)}}</td></tr>
+                        <tr><td>{{=T('E-mail')}}</td><td>{{=r.email}}</td></tr>
+                    </table>
                     <div class="pull-right">
                         <a class="ajax-link btn btn-primary" href="{{=URL('backend', 'approve_resume', args=r.id)}}">Approve</a>
                         <a class="ajax-link btn btn-danger" href="{{=URL('backend', 'delete_resume', args=r.id)}}">Delete</a>
@@ -73,15 +73,15 @@
               </div>
               <div id="collapse3{{=i}}" class="accordion-body collapse">
                 <div class="accordion-inner">
-                    <dl class="dl-horizontal">
-                        <dt>{{=T('Company name')}}</dt><dd>{{=j.company_name}}</dd>            
-                        <dt>{{=T('City')}}</dt><dd>{{=j.city}}</dd>
-                        <dt>{{=T('Address')}}</dt><dd>{{=j.address}}</dd>                
-                        <dt>{{=T('Position description')}}</dt><dd>{{=MARKMIN(j.position_description)}}</dd>
-                        <dt>{{=T('Available positions')}}</dt><dd>{{=j.available_positions}}</dd>
-                        <dt>{{=T('Offer expire date')}}</dt><dd>{{=j.offer_expire_date}}</dd>                        
-                        <dt>{{=T('E-mail')}}</dt><dd>{{=j.email}}</dd>
-                    </dl>
+                    <table class="table-striped table-condensed">
+                        <tr><td>{{=T('Company name')}}</td><td>{{=j.company_name}}</td></tr>
+                        <tr><td>{{=T('City')}}</td><td>{{=j.city}}</td></tr>
+                        <tr><td>{{=T('Address')}}</td><td>{{=j.address}}</td></tr>
+                        <tr><td>{{=T('Position description')}}</td><td>{{=MARKMIN(j.position_description)}}</td></tr>
+                        <tr><td>{{=T('Available positions')}}</td><td>{{=j.available_positions}}</td></tr>
+                        <tr><td>{{=T('Offer expire date')}}</td><td>{{=j.offer_expire_date}}</td></tr>    
+                        <tr><td>{{=T('E-mail')}}</td><td>{{=j.email}}</td></tr>
+                    </table>
                     <div class="pull-right">
                         <a class="ajax-link btn btn-primary" href="{{=URL('backend', 'approve_job_offer', args=j.id)}}">Approve</a>
                         <a class="ajax-link btn btn-danger" href="{{=URL('backend', 'delete_job_offer', args=j.id)}}">Delete</a>
